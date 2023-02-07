@@ -1,0 +1,77 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://images.pexels.com/photos/3747136/pexels-photo-3747136.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+
+        <title>Logout</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+      
+      </head>
+    <body>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+        
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                       <strong>{{ message }}</strong>
+                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    
+    </body>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in all_posts %}
+        <div class="post-preview">
+          <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <h2 class="post-title">
+              {{post.title}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.subtitle}}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+
+            {{post.author.name}}
+            on {{post.date}}
+            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+
+          </p>
+          {% endfor %}
+        </div>
+
+
+
+        <!-- New Post -->
+         {% if current_user.is_authenticated %}
+        <div class="clearfix"
+          <a class="btn btn-primary float-right" href="{{url_for('add_new_post')}}">Create New Post</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <hr>
+
+{% include "footer.html" %}
